@@ -63,14 +63,12 @@ class Hackathon_GridControl_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_
 
     protected function _prepareColumns()
     {
-        $prefix = Mage::getConfig()->getTablePrefix();
-
         $this->addColumn('real_order_id', array(
             'header'=> Mage::helper('sales')->__('Order #'),
             'width' => '80px',
             'type'  => 'text',
             'index' => 'increment_id',
-            'filter_index' => $prefix . 'main_table.increment_id',
+            'filter_index' => 'main_table.increment_id',
         ));
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -80,7 +78,7 @@ class Hackathon_GridControl_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_
                 'type'      => 'store',
                 'store_view'=> true,
                 'display_deleted' => true,
-                'filter_index' => $prefix . 'main_table.store_id',
+                'filter_index' => 'main_table.store_id',
             ));
         }
 
@@ -89,19 +87,19 @@ class Hackathon_GridControl_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_
             'index' => 'created_at',
             'type' => 'datetime',
             'width' => '100px',
-            'filter_index' => $prefix . 'main_table.created_at',
+            'filter_index' => 'main_table.created_at',
         ));
 
         $this->addColumn('billing_name', array(
             'header' => Mage::helper('sales')->__('Bill to Name'),
             'index' => 'billing_name',
-            'filter_index' => $prefix . 'main_table.billing_name',
+            'filter_index' => 'main_table.billing_name',
         ));
 
         $this->addColumn('shipping_name', array(
             'header' => Mage::helper('sales')->__('Ship to Name'),
             'index' => 'shipping_name',
-            'filter_index' => $prefix . 'main_table.shipping_name',
+            'filter_index' => 'main_table.shipping_name',
         ));
 
         $this->addColumn('base_grand_total', array(
@@ -109,7 +107,7 @@ class Hackathon_GridControl_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_
             'index' => 'base_grand_total',
             'type'  => 'currency',
             'currency' => 'base_currency_code',
-            'filter_index' => $prefix . 'main_table.base_grand_total',
+            'filter_index' => 'main_table.base_grand_total',
         ));
 
         $this->addColumn('grand_total', array(
@@ -117,7 +115,7 @@ class Hackathon_GridControl_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_
             'index' => 'grand_total',
             'type'  => 'currency',
             'currency' => 'order_currency_code',
-            'filter_index' => $prefix . 'main_table.grand_total',
+            'filter_index' => 'main_table.grand_total',
         ));
 
         $this->addColumn('status', array(
@@ -126,7 +124,7 @@ class Hackathon_GridControl_Block_Sales_Order_Grid extends Mage_Adminhtml_Block_
             'type'  => 'options',
             'width' => '70px',
             'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
-            'filter_index' => $prefix . 'main_table.status',
+            'filter_index' => 'main_table.status',
         ));
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {

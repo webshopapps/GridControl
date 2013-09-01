@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <config>
     <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Hackathon_GridControl_Block_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+
         <models>
             <hackathon_gridcontrol>
                 <class>Hackathon_GridControl_Model</class>

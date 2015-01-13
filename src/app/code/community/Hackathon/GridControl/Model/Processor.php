@@ -21,6 +21,7 @@ class Hackathon_GridControl_Model_Processor
         // process columns
         foreach ($blockConfig->children() as $column) {
             // process column actions
+
             foreach ($column->children() as $action) {
                 // create method name
                 $func = '_' . $action->getName() . 'Action';
@@ -45,6 +46,7 @@ class Hackathon_GridControl_Model_Processor
         Mage::register('hackathon_gridcontrol_current_block', $block);
         // call _prepareCollection to reload the collection and apply column filters
         $this->_callProtectedMethod($block, '_prepareCollection');
+
         // remove current block to prevent race conditions in later collection loads
         Mage::unregister('hackathon_gridcontrol_current_block');
     }
@@ -118,13 +120,23 @@ class Hackathon_GridControl_Model_Processor
                 // in case of arrays as attribute values
                 $optionArray = array();
                 foreach ($attribute->children() as $option) {
-                    $optionArray[(string) $option->key] = (string) $option->value;
+
+                        $optionArray[(string) $option->key] = (string) $option->value;
                 }
                 $columnConfig[$attribute->getName()] = $optionArray;
             } else {
-                // standard string attribute
-                $columnConfig[$attribute->getName()] = (string) $attribute;
+                if($attribute->getName() == 'filter_condition_callback') {
+                    $variables = explode('::', $attribute);
+                    if(is_array($variables)){
+                        $columnConfig[$attribute->getName()] = array(Mage::getModel($variables[0]), (string) $variables[1]);
+                    }
+                }
+                else {
+                    // standard string attribute
+                    $columnConfig[$attribute->getName()] = (string) $attribute;
+                }
             }
+
         }
 
         // add column to grid block

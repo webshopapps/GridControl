@@ -1,1 +1,2 @@
 1.1  - Re-tagging to ensure we have latest logic
+1.2  - PICKUP-62 filter condition callback
